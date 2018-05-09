@@ -56,6 +56,7 @@ public class SimpleDatabase implements CSVReadable {
         return null;
     }
 
+
     @Override
     public List<Row> find(List<SearchCreterion> searchCritera) {
         return null;
