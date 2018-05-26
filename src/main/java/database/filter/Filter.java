@@ -2,25 +2,25 @@ package database.filter;
 
 public class Filter {
 
-    private ColumneName columneName;
+    private FilterType filterType;
     private int start;
     private int end;
 
-    public Filter(ColumneName columne, int start, int end){
+    public Filter(FilterType columne, int start, int end){
 
-        this.columneName = columne;
+        this.filterType = columne;
         this.start = start;
         this.end = end;
 
     }
 
-    public Filter(ColumneName columne, int value){
+    public Filter(FilterType columne, int value){
         this(columne, value, value);
 
     }
 
-    public ColumneName getColumneName() {
-        return columneName;
+    public FilterType getFilterType() {
+        return filterType;
     }
 
     public int getStart() {

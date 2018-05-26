@@ -1,6 +1,8 @@
 package database;
 
-public class City {
+import database.filter.FilterType;
+
+public class City{
 
     private String stadt;
     private int postleitzahl;
@@ -31,5 +33,56 @@ public class City {
                 ", bevFemale=" + bevFemale +
                 '}';
     }
+
+    public String getStadt() {
+        return stadt;
+    }
+
+    public int getPostleitzahl() {
+        return postleitzahl;
+    }
+
+    public double getFlaeche() {
+        return flaeche;
+    }
+
+    public int getBevGesamt() {
+        return bevGesamt;
+    }
+
+    public int getBevMale() {
+        return bevMale;
+    }
+
+    public int getBevFemale() {
+        return bevFemale;
+    }
+
+    public City(int postleitzahl) {
+        this.postleitzahl = postleitzahl;
+    }
+
+    public int compareTo(City o, FilterType filterType) {
+
+        if(filterType.equals(FilterType.PLZ)){
+            return new Integer(this.getPostleitzahl()).compareTo(new Integer(o.getPostleitzahl()));
+
+        } else if(filterType.equals(FilterType.AREA)) {
+            return new Double(this.getFlaeche()).compareTo(new Double(o.getFlaeche()));
+
+        } else if(filterType.equals(FilterType.POPULATION)) {
+            return new Integer(this.getBevGesamt()).compareTo(new Integer(o.getBevGesamt()));
+
+        } else if(filterType.equals(FilterType.POPULATION_FEMALE)) {
+            return new Integer(this.getBevFemale()).compareTo(new Integer(o.getBevFemale()));
+
+        } else if(filterType.equals(FilterType.POPULATION_MALE)) {
+            return new Integer(this.getBevMale()).compareTo(new Integer(o.getBevMale()));
+
+        }
+
+        return 0;
+    }
+
 
 }

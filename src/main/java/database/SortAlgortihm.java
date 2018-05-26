@@ -1,8 +1,8 @@
 package database;
 
-import database.filter.ColumneName;
-import database.filter.Filter;
+import database.filter.FilterType;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -11,9 +11,66 @@ import java.util.List;
 public class SortAlgortihm {
 
 
-    public List<City> sort(List<City> cities, ColumneName filter){
+    public List<City> sort(List<City> cities, FilterType filter){
 
-        return null;
+        City min = null;
+
+        for(int i = 0; i < cities.size(); i++){
+
+            min = findMinStartingAt(cities, i, filter);
+
+            swap(cities, cities.get(i), min);
+
+        }
+
+        return cities;
 
     }
+
+
+    private City findMinStartingAt(List<City> cities, int i, FilterType filter) {
+
+        City min = cities.get(i);
+
+        for(int j = i + 1; j < cities.size(); j++){
+
+            if(cities.get(j).compareTo(min, filter) < 0){
+                min = cities.get(j);
+            }
+
+        }
+
+        return min;
+    }
+
+    private void swap(List<City> cities, City ci, City min) {
+
+        int i = cities.indexOf(ci);
+        int m = cities.indexOf(min);
+
+        cities.add(i, min);
+        cities.remove(i + 1);
+
+        cities.add(m, ci);
+        cities.remove(m + 1);
+
+    }
+
+    public static void main(String[] args) throws IOException {
+
+
+        SimpleDatabase database = new SimpleDatabase("database/StaedteStatistik.CSV");
+
+        SortAlgortihm algortihm2 = new SortAlgortihm();
+
+        List<City> cities = database.load(0,0);
+
+        System.out.println(cities.size());
+
+        System.out.println(algortihm2.sort(cities, FilterType.PLZ));
+
+
+    }
+
+
 }

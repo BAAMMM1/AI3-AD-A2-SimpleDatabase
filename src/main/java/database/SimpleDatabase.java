@@ -45,13 +45,13 @@ public class SimpleDatabase{
 
         }
 
-        System.out.println(list);
+        //System.out.println(list);
 
 
 
 
 
-        return null;
+        return list;
     }
 
 
@@ -65,11 +65,11 @@ public class SimpleDatabase{
         for(int i = 0; i < filterList.size(); i++){
 
             // 2. Für aktuellen Filter Hilfsliste aus Ergebnisliste erstellen (Sortierung)
-            List<City> helpList = new SortAlgortihm().sort(result, filterList.get(i).getColumneName());
+            List<City> helpList = new SortAlgortihm().sort(result, filterList.get(i).getFilterType());
 
             // 3. Binäre Suche nach Wert von links nach rechts Intervall
-            int leftIndex = new SearchAlgortihm().search(helpList, filterList.get(i).getColumneName() , filterList.get(i).getStart());
-            int rightIndex = new SearchAlgortihm().search(helpList, filterList.get(i).getColumneName(), filterList.get(i).getEnd());
+            int leftIndex = new SearchAlgortihm().search(helpList, filterList.get(i).getFilterType() , filterList.get(i).getStart());
+            int rightIndex = new SearchAlgortihm().search(helpList, filterList.get(i).getFilterType(), filterList.get(i).getEnd());
 
             // 4. Ergebnisliste aktualisieren mit Hilfe der Hilfsliste
             result = helpList.subList(leftIndex, rightIndex+1);
