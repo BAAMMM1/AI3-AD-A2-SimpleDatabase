@@ -1,5 +1,7 @@
 package database;
 
+import database.filter.ColumneName;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  */
 public class SearchAlgortihm {
 
-    public int search(List<City> list, int start) {
+    public int search(List<City> list, ColumneName columneName, int start) {
 
         return 0;
 
