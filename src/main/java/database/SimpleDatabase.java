@@ -72,7 +72,7 @@ public class SimpleDatabase{
             int rightIntervall = new SearchAlgortihm().search(filterList.get(i).getEnd());
 
             // 4. Ergebnisliste aktualisieren mit Hilfe der Hilfsliste
-            result = helpList.subList(leftIntervall, rightIntervall);
+            result = helpList.subList(leftIntervall, rightIntervall+1);
 
 
         }
