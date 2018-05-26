@@ -32,4 +32,27 @@ public class City {
                 '}';
     }
 
+    public String getStadt() {
+        return stadt;
+    }
+
+    public int getPostleitzahl() {
+        return postleitzahl;
+    }
+
+    public double getFlaeche() {
+        return flaeche;
+    }
+
+    public int getBevGesamt() {
+        return bevGesamt;
+    }
+
+    public int getBevMale() {
+        return bevMale;
+    }
+
+    public int getBevFemale() {
+        return bevFemale;
+    }
 }
