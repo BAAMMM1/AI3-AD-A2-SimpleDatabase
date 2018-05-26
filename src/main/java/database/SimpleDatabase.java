@@ -68,8 +68,8 @@ public class SimpleDatabase{
             List<City> helpList = new SortAlgortihm().sort(result, filterList.get(i).getColumneName());
 
             // 3. Binäre Suche nach Wert von links nach rechts Intervall
-            int leftIntervall = new SearchAlgortihm().search(filterList.get(i).getStart());
-            int rightIntervall = new SearchAlgortihm().search(filterList.get(i).getEnd());
+            int leftIntervall = new SearchAlgortihm().search(helpList, filterList.get(i).getStart());
+            int rightIntervall = new SearchAlgortihm().search(helpList, filterList.get(i).getEnd());
 
             // 4. Ergebnisliste aktualisieren mit Hilfe der Hilfsliste
             result = helpList.subList(leftIntervall, rightIntervall+1);
