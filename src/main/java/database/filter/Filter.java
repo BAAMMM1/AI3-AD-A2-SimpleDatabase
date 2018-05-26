@@ -1,12 +1,12 @@
-package database.searchCritera;
+package database.filter;
 
-public class SearchCreterion {
+public class Filter {
 
     private ColumneName columneName;
     private int start;
     private int end;
 
-    public SearchCreterion(ColumneName columne, int start, int end){
+    public Filter(ColumneName columne, int start, int end){
 
         this.columneName = columne;
         this.start = start;
@@ -14,7 +14,7 @@ public class SearchCreterion {
 
     }
 
-    public SearchCreterion(ColumneName columne, int value){
+    public Filter(ColumneName columne, int value){
         this(columne, value, value);
 
     }

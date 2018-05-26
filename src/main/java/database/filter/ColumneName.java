@@ -1,4 +1,4 @@
-package database.searchCritera;
+package database.filter;
 
 public enum ColumneName {
 
