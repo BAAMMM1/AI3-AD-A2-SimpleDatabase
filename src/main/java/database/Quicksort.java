@@ -1,87 +1,48 @@
 package database;
 
-import database.filter.FilterType;
+import database.filter.ColumneName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Shadai on 27.05.2018
+ * @author Shadai on 26.05.2018
  */
 public class Quicksort {
-    private FilterType filter;
-    private List<City> sortedList;
+    public List<City> sort(List<City> cities, ColumneName filter) {
+        ArrayList<City> result = new ArrayList<City>();
+        ArrayList<Integer> lockedList = new ArrayList<Integer>();
 
-    public List<City> sort(List<City> cities, FilterType filter) {
+        if (filter == ColumneName.PLZ) {
+            int length = result.size();
+                // 1. pivot bilden -> Median fällt weg, weil wir hier Liste sortieren wollen.
+                // daher einfach ersten wert als pivot
+                int pivot = result.get(0).getPostleitzahl();
+                int left = result.get(1).getPostleitzahl();
+                int rigth = result.size()+1;
 
-        //Initialize
-        this.filter = filter;
-        sortedList = cities;
+                //2.Left index setzen
+                //  Left geht so lange mit dem Index hoch, bis der wert, der sich hinter dem index befindet,
+                //  größer dem pivot
+                for (int i = 0; i < length; i++){
+                    while (result.get(i).getPostleitzahl()<pivot && i < rigth){
 
-        //1. Sortiere Liste
-        sortWithQuickSort(sortedList);
+                    }
+                }
+
+                //3.Rechts index setzen
+                //  Rechts geht so lange mit dem Index runter, bis der Wert kleiner ist als der pivot
 
 
-        return sortedList;
-    }
 
-    private void sortWithQuickSort(List<City> toSortList) {
-        //2. Wie sortWithQuickSort ich? in dem ich quick sort von index 0 bis Ende anwende
-        qSort(toSortList, 0, toSortList.size() - 1);
-    }
+//            for (int i = 0; i < length; i++){
+//
+//            }
 
-    private void qSort(List<City> cities, int left, int right) {
-        if (left < right) {
-            int i = gettingFixedIndex(cities, left, right); //um festzustellen, ob es einen kleineren Part gibt, der erst sortiert werden muss
-            //qSort nun linken Teil
-            qSort(sortedList, left, i - 1);
-            //qSort dann rechten Teil
-            qSort(sortedList, i + 1, right);
+
+            result.get(1).getPostleitzahl();
         }
-
-    }
-
-
-    //statt mit werten hinter indexen -> hier statt Arralist<Intger> i[] -> i[4] = irgendein Int wert zu arbeiten
-    // muss nun mit Arralist<City> cities -> City[] cities
-
-    //cities[index].getValue(filterType) um an die werte hinter z.b. PLZ zu kommen
-
-    private int gettingFixedIndex(List<City> cities, int left, int right) {
-        // 1. Pivot setzen, hier 1. Element
-        City pivot = cities.get(right);
-        City leftCity = cities.get(left);
-        City rightCity = cities.get(right - 1);
-        while (cities.indexOf(leftCity) <= cities.indexOf(rightCity)) {
-            //if (leftCity.compareTo(rightCity, filter) == 1) {
-            if (leftCity.getValue(filter) > pivot.getValue(filter)) {
-                //tausche cities left und right
-                System.out.println("rightcityIndex vor swap = "+cities.indexOf(rightCity));
-                System.out.println("leftcityIndex vor swap = "+cities.indexOf(leftCity)+"\n");
-                swap(cities, leftCity, rightCity);
-
-                System.out.println("rightcityIndex = "+cities.indexOf(rightCity));
-                System.out.println("leftcityIndex = "+cities.indexOf(leftCity)+"\n---------------------------\n");
-                rightCity = cities.get(cities.indexOf(rightCity) - 1);
-
-            } else leftCity = cities.get(cities.indexOf(leftCity) + 1);
-        }
-        swap(cities, leftCity, cities.get(right));
-
-
-        return cities.indexOf(leftCity);
-
-    }
-
-    private void swap(List<City> cities, City ci, City min) {
-
-        int i = cities.indexOf(ci);
-        int m = cities.indexOf(min);
-
-        cities.add(i, min);
-        cities.remove(i + 1);
-
-        cities.add(m, ci);
-        cities.remove(m + 1);
+        return result;
 
     }
 
