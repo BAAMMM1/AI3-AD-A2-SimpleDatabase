@@ -61,9 +61,9 @@ public class SortAlgortihm {
 
         SimpleDatabase database = new SimpleDatabase("database/StaedteStatistik.CSV");
 
-        SortAlgortihm algortihm2 = new SortAlgortihm();
-
         List<City> cities = database.load(0,0);
+
+        SortAlgortihm algortihm2 = new SortAlgortihm();
 
         System.out.println(cities.size());
 

@@ -84,5 +84,28 @@ public class City{
         return 0;
     }
 
+    public double getValue(FilterType filterType){
+
+        if(filterType.equals(FilterType.PLZ)){
+            return this.getPostleitzahl();
+
+        } else if(filterType.equals(FilterType.AREA)) {
+            return this.getFlaeche();
+
+        } else if(filterType.equals(FilterType.POPULATION)) {
+            return this.getBevGesamt();
+
+        } else if(filterType.equals(FilterType.POPULATION_FEMALE)) {
+            return this.getBevFemale();
+
+        } else if(filterType.equals(FilterType.POPULATION_MALE)) {
+            return this.getBevMale();
+
+        }
+
+        return 0;
+
+    }
+
 
 }

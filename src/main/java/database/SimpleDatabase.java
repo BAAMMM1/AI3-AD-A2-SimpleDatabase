@@ -1,15 +1,17 @@
 package database;
 
 import database.filter.Filter;
+import database.filter.FilterType;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Chris on 08.05.2018
  */
-public class SimpleDatabase{
+public class SimpleDatabase {
 
     public static final int COLUMNE_COUNT = 6;
     private String path;
@@ -25,13 +27,13 @@ public class SimpleDatabase{
         ArrayList<City> list = new ArrayList<City>();
 
         BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new FileInputStream(path),"ISO-8859-1"));
+                new InputStreamReader(new FileInputStream(path), "ISO-8859-1"));
 
         String line;
 
         // TODO - RegEx Vorverarbeitung für line
 
-        while((line = reader.readLine()) != null){
+        while ((line = reader.readLine()) != null) {
             String tokens[] = line.replace("/", "0").split(";");
 
             list.add(new City(
@@ -48,9 +50,6 @@ public class SimpleDatabase{
         //System.out.println(list);
 
 
-
-
-
         return list;
     }
 
@@ -62,17 +61,17 @@ public class SimpleDatabase{
 
 
         // 5. So lange 2 - 4 bis alle Filter abgearbeitet sind
-        for(int i = 0; i < filterList.size(); i++){
+        for (int i = 0; i < filterList.size(); i++) {
 
             // 2. Für aktuellen Filter Hilfsliste aus Ergebnisliste erstellen (Sortierung)
             List<City> helpList = new SortAlgortihm().sort(result, filterList.get(i).getFilterType());
 
             // 3. Binäre Suche nach Wert von links nach rechts Intervall
-            int leftIndex = new SearchAlgortihm().search(helpList, filterList.get(i).getFilterType() , filterList.get(i).getStart());
+            int leftIndex = new SearchAlgortihm().search(helpList, filterList.get(i).getFilterType(), filterList.get(i).getStart());
             int rightIndex = new SearchAlgortihm().search(helpList, filterList.get(i).getFilterType(), filterList.get(i).getEnd());
 
             // 4. Ergebnisliste aktualisieren mit Hilfe der Hilfsliste
-            result = helpList.subList(leftIndex, rightIndex+1);
+            result = helpList.subList(leftIndex, rightIndex + 1);
 
 
         }
@@ -82,33 +81,22 @@ public class SimpleDatabase{
     }
 
 
+    public static void main(String[] args) throws IOException {
 
+        SimpleDatabase database = new SimpleDatabase("database/StaedteStatistik.CSV");
 
+        List<City> cities = database.load(0, 0);
 
+        List<Filter> filters = Arrays.asList(
+                new Filter(FilterType.PLZ, 55275, 55431), // TODO - start 55275, ende 55431
+                new Filter(FilterType.POPULATION, 1901, 8388),
+                new Filter(FilterType.POPULATION_FEMALE, 3853, 5096)
+        );
 
+        List<City> result = database.find(filters, cities);
 
+        System.out.println(result);
 
-
-
-
-
-
-
-
-
-    public static void main(String[] args) {
-
-        try {
-
-            SimpleDatabase database = new SimpleDatabase("database/StaedteStatistik.CSV");
-            database.load(0,0);
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }

@@ -8,6 +8,8 @@ public class Filter {
 
     public Filter(FilterType columne, int start, int end){
 
+        // TODO - Start darf nicht größer End sein.
+
         this.filterType = columne;
         this.start = start;
         this.end = end;
