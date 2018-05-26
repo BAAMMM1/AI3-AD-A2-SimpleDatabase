@@ -9,6 +9,7 @@ public class Filter {
     public Filter(FilterType columne, int start, int end){
 
         // TODO - Start darf nicht größer End sein.
+        // TODO start > 0 sein
 
         this.filterType = columne;
         this.start = start;

@@ -1,5 +1,7 @@
-package database;
+package database.sorting;
 
+import database.City;
+import database.SimpleDatabase;
 import database.filter.FilterType;
 
 import java.io.IOException;
@@ -8,16 +10,23 @@ import java.util.List;
 /**
  * @author Chris on 26.05.2018
  */
-public class SortAlgortihm {
+public class SelectionSort {
 
 
     public List<City> sort(List<City> cities, FilterType filter){
 
-        City min = null;
 
         for(int i = 0; i < cities.size(); i++){
 
-            min = findMinStartingAt(cities, i, filter);
+            City min = cities.get(i);
+
+            for(int j = i + 1; j < cities.size(); j++){
+
+                if(cities.get(j).compareTo(min, filter) < 0){
+                    min = cities.get(j);
+                }
+
+            }
 
             swap(cities, cities.get(i), min);
 
@@ -28,20 +37,6 @@ public class SortAlgortihm {
     }
 
 
-    private City findMinStartingAt(List<City> cities, int i, FilterType filter) {
-
-        City min = cities.get(i);
-
-        for(int j = i + 1; j < cities.size(); j++){
-
-            if(cities.get(j).compareTo(min, filter) < 0){
-                min = cities.get(j);
-            }
-
-        }
-
-        return min;
-    }
 
     private void swap(List<City> cities, City ci, City min) {
 
@@ -63,7 +58,7 @@ public class SortAlgortihm {
 
         List<City> cities = database.load(0,0);
 
-        SortAlgortihm algortihm2 = new SortAlgortihm();
+        SelectionSort algortihm2 = new SelectionSort();
 
         System.out.println(cities.size());
 
