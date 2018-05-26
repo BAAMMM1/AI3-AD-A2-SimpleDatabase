@@ -2,8 +2,8 @@ package database;
 
 import database.filter.FilterType;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,46 +13,83 @@ public class SearchAlgortihm {
 
     public int search(List<City> list, FilterType filterType, int intervall) {
 
-        int result = this.binarySearch(list, filterType, intervall);
+        int result = this.binarySearchLeftInterval(list, filterType, intervall);
 
         return result;
 
     }
 
-    public int binarySearch(List<City> sortedList, FilterType filterType, int intervall) {
+    public int binarySearchLeftInterval(List<City> sortedList, FilterType filterType, int interval) {
+
+        // TODO - Da die Liste sortiert ist, gucken ob das Interval größer als der größte Wert ist
 
         int left = 0;
         int right = sortedList.size() - 1;
-        int mid = 1; // TODO - ohne Initialisierung
+        int mid;
 
 
         while (left <= right) {
 
             mid = (left + right) / 2;
 
-            if (intervall < sortedList.get(mid).getValue(filterType)) {
+            if (interval < sortedList.get(mid).getValue(filterType)) {
 
                 right = mid - 1;
 
-            } else if (intervall > sortedList.get(mid).getValue(filterType)) {
+            } else if (interval > sortedList.get(mid).getValue(filterType)) {
 
                 left = mid + 1;
 
-            } else if (intervall == sortedList.get(mid).getValue(filterType)) {
+            } else if (interval == sortedList.get(mid).getValue(filterType)) {
+                System.out.println("-> 0");
                 return mid;
 
             }
 
         }
 
-        // PLZ: 55421, 55422, 55424, 55430
-        // Damit das intervall passt
-        if(sortedList.get(mid).getValue(filterType) < intervall){
-            return mid - 1;
-        } else {
-            return mid;
+        // Wenn er nicht genau das Element findet im letzten Fall, dann läuft er hier raus
+        // entscheiden ob man die davor oder danach zurück gibt fürs Intervall
+
+
+        // https://stackoverflow.com/questions/16219998/modify-binary-search-to-find-the-next-bigger-item-than-the-key?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+        return right + 1;
+
+    }
+
+
+    public int binarySearchRightInterval(List<City> sortedList, FilterType filterType, int interval) {
+
+        int left = 0;
+        int right = sortedList.size() - 1;
+        int mid;
+
+
+        while (left <= right) {
+
+            mid = (left + right) / 2;
+
+            if (interval < sortedList.get(mid).getValue(filterType)) {
+
+                right = mid - 1;
+
+            } else if (interval > sortedList.get(mid).getValue(filterType)) {
+
+                left = mid + 1;
+
+            } else if (interval == sortedList.get(mid).getValue(filterType)) {
+                System.out.println("-> 0: " + mid);
+                return mid;
+
+            }
+
         }
 
+
+        // https://stackoverflow.com/questions/16219998/modify-binary-search-to-find-the-next-bigger-item-than-the-key?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+        return right;
 
     }
 
@@ -68,15 +105,9 @@ public class SearchAlgortihm {
 
         SearchAlgortihm algortihm = new SearchAlgortihm();
 
-        // 55282 -> 1085  -> 55282
-        // 55283 -> 1085  -> 55283
-        // 55284 -> 1086  -> 55286
-        // 55285 -> 1086  -> 55286
-        // 55286 -> 1086  -> 55286
+        System.out.println(algortihm.binarySearchLeftInterval(cities, FilterType.PLZ, 55277));
 
-        System.out.println(algortihm.binarySearch(cities, FilterType.PLZ, 55283));
-
-        System.out.println(cities.subList(algortihm.binarySearch(cities, FilterType.PLZ, 55276), algortihm.binarySearch(cities, FilterType.PLZ, 55430) + 1));
+        System.out.println(cities.subList(algortihm.binarySearchLeftInterval(cities, FilterType.PLZ, 55276), algortihm.binarySearchLeftInterval(cities, FilterType.PLZ, 55430) + 1));
 
     }
 }
