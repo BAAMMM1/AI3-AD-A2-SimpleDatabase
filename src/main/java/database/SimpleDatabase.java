@@ -1,6 +1,7 @@
 package database;
 
 import database.filter.Filter;
+import database.filter.FilterType;
 import database.searching.BinarySearch;
 import database.sorting.SelectionSort;
 
@@ -186,26 +187,25 @@ public class SimpleDatabase {
      */
     public List<City> find(List<Filter> filterList, List<City> database) {
 
+        // 1. precondition check
         if (filterList == null) throw new NullPointerException("filter list must not be null");
         if (database == null) throw new NullPointerException("database must not be null");
 
-        // 1. Ergebnisliste = alles
+        // 2. Ergebnisliste = alles
         List<City> result = database;
 
 
-        // 5. So lange 2 - 4 bis alle Filter abgearbeitet sind
+        // 6. So lange 3 - 5 bis alle Filter abgearbeitet sind
         for (int i = 0; i < filterList.size(); i++) {
 
-            // 2. Für aktuellen Filter Hilfsliste aus Ergebnisliste erstellen (Sortierung)
+            // 3. Für aktuellen Filter Hilfsliste aus Ergebnisliste erstellen (Sortierung)
             result = new SelectionSort().sort(result, filterList.get(i).getFilterType());
 
-            // 3. Binäre Suche nach Wert von links nach rechts Intervall
-            int leftIndex = new BinarySearch().searchLeft(result, filterList.get(i).getFilterType(), filterList.get(i).getStart(), true);
-            int rightIndex = new BinarySearch().searchRight(result, filterList.get(i).getFilterType(), filterList.get(i).getEnd(), false);
+            // 4. Binäre Suche nach Wert von links nach rechts Intervall
+            int leftIndex = new BinarySearch().searchLeft(result, filterList.get(i), filterList.get(i).getStart());
+            int rightIndex = new BinarySearch().searchRight(result, filterList.get(i), filterList.get(i).getEnd());
 
-            // 4. Ergebnisliste aktualisieren mit Hilfe der Hilfsliste
-            // Bsp: new Filter(FilterType.PLZ, 101, 120) leftIndex 1 = 200 bis rightIndex 0 = 100, dann leere liste
-            // weil subList 1,1 leer, weil das zweite 1 exlusiv bedeutet
+            // 5. Ergebnisliste aktualisieren mit Hilfe der Hilfsliste
             result = result.subList(leftIndex, rightIndex + 1);
 
         }
@@ -218,10 +218,10 @@ public class SimpleDatabase {
 
         SimpleDatabase database = new SimpleDatabase();
 
-        List<City> cities = database.load("database/StaedteStatistik.CSV", 1, 2);
+        List<City> cities = database.load("database/StaedteStatistik.CSV", 1, 300);
 
         List<Filter> filters = Arrays.asList(
-                //new Filter(FilterType.PLZ, 58675, 59968) // TODO - 552670, 55435
+                new Filter(FilterType.PLZ, 50000, 60000) // TODO - 552670, 55435
                 //new Filter(FilterType.POPULATION, 500000, 3000000)
                 //new Filter(FilterType.AREA, 13, 20)
 

@@ -2,6 +2,7 @@ package database.searching;
 
 import database.City;
 import database.SimpleDatabase;
+import database.filter.Filter;
 import database.filter.FilterType;
 import database.sorting.SelectionSort;
 
@@ -13,35 +14,8 @@ import java.util.List;
  */
 public class BinarySearch {
 
-    public int search(List<City> sortedList, FilterType filterType, int interval, boolean fromLeft) {
 
-        int left = 0;
-        int right = sortedList.size() - 1;
-        int mid;
-
-        while (left <= right) {
-            mid = (left + right) / 2;
-
-            if (interval < sortedList.get(mid).getValue(filterType)) {
-                right = mid - 1;
-
-            } else if (interval > sortedList.get(mid).getValue(filterType)) {
-                left = mid + 1;
-
-            } else if (interval == sortedList.get(mid).getValue(filterType)) {
-                return mid;
-
-            }
-        }
-
-        return -1;
-
-
-
-    }
-
-
-    public int searchLeft(List<City> sortedList, FilterType filterType, int interval, boolean fromLeft) {
+    public int searchLeft(List<City> sortedList, Filter filter, int interval) {
 
         // TODO - Da die Liste sortiert ist, gucken ob das Interval größer als der größte Wert ist
 
@@ -52,21 +26,19 @@ public class BinarySearch {
         while (left <= right) {
             mid = (left + right) / 2;
 
-            if (interval <= sortedList.get(mid).getValue(filterType)) { // TODO - Hier angepasst
+            if (interval <= sortedList.get(mid).getValue(filter)) {
                 right = mid - 1;
 
-            } else if (interval > sortedList.get(mid).getValue(filterType)) {
+            } else if (interval > sortedList.get(mid).getValue(filter)) {
                 left = mid + 1;
 
-            } // TODO - Ohne == wegen Interval
+            }
         }
 
-        //return left; // TODO - hier left -> right +1
         return right + 1;
-
     }
 
-    public int searchRight(List<City> sortedList, FilterType filterType, int interval, boolean fromLeft) {
+    public int searchRight(List<City> sortedList, Filter filter, int interval) {
 
         // TODO - Da die Liste sortiert ist, gucken ob das Interval größer als der größte Wert ist
 
@@ -77,40 +49,17 @@ public class BinarySearch {
         while (left <= right) {
             mid = (left + right) / 2;
 
-            if (interval < sortedList.get(mid).getValue(filterType)) {
+            if (interval < sortedList.get(mid).getValue(filter)) {
                 right = mid - 1;
 
-            } else if (interval >= sortedList.get(mid).getValue(filterType)) { // TODO - Hier angepasst
+            } else if (interval >= sortedList.get(mid).getValue(filter)) {
                 left = mid + 1;
 
             }
 
         }
 
-        //return right; // TODO - hier right left - 1
         return left - 1;
-
     }
 
-
-
-
-
-    public static void main(String[] args) throws IOException {
-
-        SimpleDatabase database = new SimpleDatabase();
-
-        List<City> cities = database.load("database/StaedteStatistik.CSV",0, 0);
-
-        SelectionSort algortihm2 = new SelectionSort();
-
-        cities = algortihm2.sort(cities, FilterType.PLZ);
-
-        BinarySearch algortihm = new BinarySearch();
-
-        System.out.println(algortihm.search(cities, FilterType.PLZ, 55277, true));
-
-        System.out.println(cities.subList(algortihm.search(cities, FilterType.PLZ, 55276, true), algortihm.search(cities, FilterType.PLZ, 55430, true) + 1));
-
-    }
 }

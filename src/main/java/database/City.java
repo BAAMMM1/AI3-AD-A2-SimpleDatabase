@@ -1,5 +1,6 @@
 package database;
 
+import database.filter.Filter;
 import database.filter.FilterType;
 
 public class City{
@@ -85,21 +86,21 @@ public class City{
 
     }
 
-    public double getValue(FilterType filterType){
+    public double getValue(Filter filter){
 
-        if(filterType.equals(FilterType.PLZ)){
+        if(filter.getFilterType().equals(FilterType.PLZ)){
             return this.getPostleitzahl();
 
-        } else if(filterType.equals(FilterType.AREA)) {
+        } else if(filter.getFilterType().equals(FilterType.AREA)) {
             return this.getFlaeche();
 
-        } else if(filterType.equals(FilterType.POPULATION)) {
+        } else if(filter.getFilterType().equals(FilterType.POPULATION)) {
             return this.getBevGesamt();
 
-        } else if(filterType.equals(FilterType.POPULATION_FEMALE)) {
+        } else if(filter.getFilterType().equals(FilterType.POPULATION_FEMALE)) {
             return this.getBevFemale();
 
-        } else if(filterType.equals(FilterType.POPULATION_MALE)) {
+        } else if(filter.getFilterType().equals(FilterType.POPULATION_MALE)) {
             return this.getBevMale();
 
         }  else {
