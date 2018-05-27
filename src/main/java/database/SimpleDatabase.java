@@ -64,7 +64,7 @@ public class SimpleDatabase {
         for (int i = 0; i < filterList.size(); i++) {
 
             // 2. Für aktuellen Filter Hilfsliste aus Ergebnisliste erstellen (Sortierung)
-            List<City> helpList = new SortAlgortihm().sort(result, filterList.get(i).getFilterType());
+            List<City> helpList = new Quicksort().sort(result, filterList.get(i).getFilterType());
 
             // 3. Binäre Suche nach Wert von links nach rechts Intervall
             int leftIndex = new SearchAlgortihm().search(helpList, filterList.get(i).getFilterType(), filterList.get(i).getStart());
@@ -88,12 +88,18 @@ public class SimpleDatabase {
         List<City> cities = database.load(0, 0);
 
         List<Filter> filters = Arrays.asList(
-                new Filter(FilterType.PLZ, 55275, 55431), // TODO - start 55275, ende 55431
-                new Filter(FilterType.POPULATION, 1901, 8388),
-                new Filter(FilterType.POPULATION_FEMALE, 3853, 5096)
+                new Filter(FilterType.PLZ, 0, 1000)// TODO - start 55275, ende 55431
+//                new Filter(FilterType.POPULATION, 1901, 8388),
+//                new Filter(FilterType.POPULATION_FEMALE, 3853, 5096)
         );
-
-        List<City> result = database.find(filters, cities);
+        List<City> dumies = new ArrayList<City>();
+        dumies.add(new City(100));
+        dumies.add(new City(800));
+        dumies.add(new City(400));
+        dumies.add(new City(700));
+        dumies.add(new City(500));
+        dumies.add(new City(200));
+        List<City> result = database.find(filters, dumies);
 
         System.out.println(result);
 
