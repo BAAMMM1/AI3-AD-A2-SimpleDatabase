@@ -69,9 +69,11 @@ public class SimpleDatabase {
             List<City> helpList = new SelectionSort().sort(result, filterList.get(i).getFilterType());
 
             // 3. Binäre Suche nach Wert von links nach rechts Intervall
-            int leftIndex = new BinarySearch().search(helpList, filterList.get(i).getFilterType(), filterList.get(i).getStart(), true);
-            int rightIndex = new BinarySearch().search(helpList, filterList.get(i).getFilterType(), filterList.get(i).getEnd(), false);
+            int leftIndex = new BinarySearch().searchLeft(helpList, filterList.get(i).getFilterType(), filterList.get(i).getStart(), true);
+            int rightIndex = new BinarySearch().searchRight(helpList, filterList.get(i).getFilterType(), filterList.get(i).getEnd(), false);
 
+            System.out.println("left:" + leftIndex);
+            System.out.println("right:" + rightIndex);
 
             // 4. Ergebnisliste aktualisieren mit Hilfe der Hilfsliste
             // Bsp: new Filter(FilterType.PLZ, 101, 120) leftIndex 1 = 200 bis rightIndex 0 = 100, dann leere liste
@@ -92,7 +94,7 @@ public class SimpleDatabase {
 
         List<Filter> filters = Arrays.asList(
                 //new Filter(FilterType.PLZ, 58675, 58675) // TODO - 552670, 55435
-                new Filter(FilterType.POPULATION, -10, 10)
+                new Filter(FilterType.POPULATION, -10, 480)
                 //new Filter(FilterType.AREA, 13, 20)
 
         );
