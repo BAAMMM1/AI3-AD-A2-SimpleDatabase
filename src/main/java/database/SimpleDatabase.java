@@ -202,8 +202,8 @@ public class SimpleDatabase {
             result = new SelectionSort().sort(result, filterList.get(i).getFilterType());
 
             // 4. Binäre Suche nach Wert von links nach rechts Intervall
-            int leftIndex = new BinarySearch().searchLeft(result, filterList.get(i), filterList.get(i).getStart());
-            int rightIndex = new BinarySearch().searchRight(result, filterList.get(i), filterList.get(i).getEnd());
+            int leftIndex = new BinarySearch().searchLeft(result, filterList.get(i));
+            int rightIndex = new BinarySearch().searchRight(result, filterList.get(i));
 
             // 5. Ergebnisliste aktualisieren mit Hilfe der Hilfsliste
             result = result.subList(leftIndex, rightIndex + 1);
@@ -218,12 +218,12 @@ public class SimpleDatabase {
 
         SimpleDatabase database = new SimpleDatabase();
 
-        List<City> cities = database.load("database/StaedteStatistik.CSV", 1, 300);
+        List<City> cities = database.load("database/StaedteStatistik.CSV", 1, 200);
 
         List<Filter> filters = Arrays.asList(
-                new Filter(FilterType.PLZ, 50000, 60000) // TODO - 552670, 55435
-                //new Filter(FilterType.POPULATION, 500000, 3000000)
-                //new Filter(FilterType.AREA, 13, 20)
+                new Filter(FilterType.PLZ, 47803, 67547) // TODO - 552670, 55435
+                //new Filter(FilterType.POPULATION, 3574829, 3574831)
+                //new Filter(FilterType.AREA, 13.50, 15.38)
 
         );
 
