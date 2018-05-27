@@ -6,5 +6,10 @@ package database.performance;
 public class Performance {
 
 
+    public void searchSeries(){
+
+    }
+
+
 
 }

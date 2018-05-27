@@ -63,9 +63,7 @@ public class SimpleDatabase {
     /**
      * Default - Konstruktor
      */
-    public SimpleDatabase() {
-
-    }
+    public SimpleDatabase() { }
 
     /**
      * Diese Methode stellt das Einlesen von Städten eines Abschnitts einer übergebenen CSV-Datei von Start-Zeile bis
@@ -218,7 +216,7 @@ public class SimpleDatabase {
 
         SimpleDatabase database = new SimpleDatabase();
 
-        List<City> cities = database.load("database/StaedteStatistik.CSV", 1, 10);
+        List<City> cities = database.load("database/StaedteStatistik.CSV", 1, 2000);
 
         List<Filter> filters = Arrays.asList(
                 new Filter(FilterType.PLZ, 60311, 60311) // TODO - 552670, 55435
