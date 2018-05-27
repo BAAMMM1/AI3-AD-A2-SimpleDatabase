@@ -36,7 +36,7 @@ public class SimpleDatabase {
         // TODO - RegEx Vorverarbeitung für line
 
         while ((line = reader.readLine()) != null) {
-            String tokens[] = line.replace("/", "-1").split(";");
+            String tokens[] = line.replace("/", "0").split(";");
 
             list.add(new City(
                     tokens[0],
@@ -94,7 +94,7 @@ public class SimpleDatabase {
 
         List<Filter> filters = Arrays.asList(
                 //new Filter(FilterType.PLZ, 58675, 58675) // TODO - 552670, 55435
-                new Filter(FilterType.POPULATION, -10, 480)
+                new Filter(FilterType.POPULATION, 0, 0)
                 //new Filter(FilterType.AREA, 13, 20)
 
         );

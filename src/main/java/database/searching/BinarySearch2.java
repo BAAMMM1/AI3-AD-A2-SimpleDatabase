@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Chris on 26.05.2018
  */
-public class BinarySearch {
+public class BinarySearch2 {
 
     public int search(List<City> sortedList, FilterType filterType, int interval, boolean fromLeft) {
 
@@ -104,7 +104,7 @@ public class BinarySearch {
 
         cities = algortihm2.sort(cities, FilterType.PLZ);
 
-        BinarySearch algortihm = new BinarySearch();
+        BinarySearch2 algortihm = new BinarySearch2();
 
         System.out.println(algortihm.search(cities, FilterType.PLZ, 55277, true));
 
