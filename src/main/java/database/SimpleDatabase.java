@@ -1,7 +1,6 @@
 package database;
 
 import database.filter.Filter;
-import database.filter.FilterType;
 import database.searching.BinarySearch;
 import database.sorting.SelectionSort;
 
@@ -15,44 +14,66 @@ import java.util.List;
  */
 public class SimpleDatabase {
 
-    public static final int COLUMNE_COUNT = 6;
-    private String path;
+    private static final String CHARSET = "ISO-8859-1";
 
-    public SimpleDatabase(String path) throws FileNotFoundException {
+    private static final String SYMBOL_DELIMITER = ";";
+    private static final String SYMBOL_DEFAULT_VALUE = "/";
+    private static final String SYMBOL_DECIMAL_ENGLISH = ",";
+    private static final String SYMBOL_DECIMAL_GERMAN = ".";
+    private static final String SYMBOL_SPACE = " ";
+    private static final String SYMBOL_EMPTY = "";
 
-        this.path = path;
+    private static final String DEFAULT_VALUE = "0";
 
+    public SimpleDatabase() {
     }
 
-    public List<City> load(int start, int end) throws IOException {
+    public List<City> load(String path, int start, int end) throws IOException {
 
         ArrayList<City> list = new ArrayList<City>();
 
         BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new FileInputStream(path), "ISO-8859-1"));
+                new InputStreamReader(new FileInputStream(path), CHARSET));
 
+        int index = 1;
         String line;
 
-        // TODO - RegEx Vorverarbeitung für line
-
         while ((line = reader.readLine()) != null) {
-            String tokens[] = line.replace("/", "0").split(";");
+            if(index < start) { index++; continue; }
+            if(index++ > end) { break; }
+
+            String tokens[] = line.split(SYMBOL_DELIMITER);
+
+            for(int i = 1; i < tokens.length; i++){
+                tokens[i] = this.replaceSpace(tokens[i]);
+            }
 
             list.add(new City(
                     tokens[0],
-                    Integer.valueOf(tokens[1].replace(" ", "")),
-                    Double.valueOf(tokens[2].replace(" ", "").replace(",", ".")),
-                    Integer.valueOf(tokens[3].replace(" ", "")),
-                    Integer.valueOf(tokens[4].replace(" ", "")),
-                    Integer.valueOf(tokens[5].replace(" ", ""))
+                    this.parseIntValue(tokens[1]),
+                    this.parseDoubleValue(tokens[2]),
+                    this.parseIntValue(tokens[3]),
+                    this.parseIntValue(tokens[4]),
+                    this.parseIntValue(tokens[5])
             ));
 
         }
 
-        //System.out.println(list);
-
+        reader.close();
 
         return list;
+    }
+
+    private Double parseDoubleValue(String string){
+        return Double.valueOf(string.replace(SYMBOL_DECIMAL_ENGLISH, SYMBOL_DECIMAL_GERMAN));
+    }
+
+    private Integer parseIntValue(String string){
+        return Integer.valueOf(string);
+    }
+
+    private String replaceSpace(String string){
+        return string.replace(SYMBOL_SPACE, SYMBOL_EMPTY).replace(SYMBOL_DEFAULT_VALUE, DEFAULT_VALUE);
     }
 
 
@@ -66,19 +87,16 @@ public class SimpleDatabase {
         for (int i = 0; i < filterList.size(); i++) {
 
             // 2. Für aktuellen Filter Hilfsliste aus Ergebnisliste erstellen (Sortierung)
-            List<City> helpList = new SelectionSort().sort(result, filterList.get(i).getFilterType());
+            result = new SelectionSort().sort(result, filterList.get(i).getFilterType());
 
             // 3. Binäre Suche nach Wert von links nach rechts Intervall
-            int leftIndex = new BinarySearch().searchLeft(helpList, filterList.get(i).getFilterType(), filterList.get(i).getStart(), true);
-            int rightIndex = new BinarySearch().searchRight(helpList, filterList.get(i).getFilterType(), filterList.get(i).getEnd(), false);
-
-            System.out.println("left:" + leftIndex);
-            System.out.println("right:" + rightIndex);
+            int leftIndex = new BinarySearch().searchLeft(result, filterList.get(i).getFilterType(), filterList.get(i).getStart(), true);
+            int rightIndex = new BinarySearch().searchRight(result, filterList.get(i).getFilterType(), filterList.get(i).getEnd(), false);
 
             // 4. Ergebnisliste aktualisieren mit Hilfe der Hilfsliste
             // Bsp: new Filter(FilterType.PLZ, 101, 120) leftIndex 1 = 200 bis rightIndex 0 = 100, dann leere liste
             // weil subList 1,1 leer, weil das zweite 1 exlusiv bedeutet
-            result = helpList.subList(leftIndex, rightIndex + 1);
+            result = result.subList(leftIndex, rightIndex + 1);
 
         }
 
@@ -88,13 +106,13 @@ public class SimpleDatabase {
 
     public static void main(String[] args) throws IOException {
 
-        SimpleDatabase database = new SimpleDatabase("database/StaedteStatistik.CSV");
+        SimpleDatabase database = new SimpleDatabase();
 
-        List<City> cities = database.load(0, 0);
+        List<City> cities = database.load("database/StaedteStatistik.CSV", 15, 30);
 
         List<Filter> filters = Arrays.asList(
-                //new Filter(FilterType.PLZ, 58675, 58675) // TODO - 552670, 55435
-                new Filter(FilterType.POPULATION, 0, 0)
+                //new Filter(FilterType.PLZ, 58675, 59968) // TODO - 552670, 55435
+                //new Filter(FilterType.POPULATION, 0, 0)
                 //new Filter(FilterType.AREA, 13, 20)
 
         );

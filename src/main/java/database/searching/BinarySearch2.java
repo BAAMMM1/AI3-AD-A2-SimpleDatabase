@@ -96,9 +96,9 @@ public class BinarySearch2 {
 
     public static void main(String[] args) throws IOException {
 
-        SimpleDatabase database = new SimpleDatabase("database/StaedteStatistik.CSV");
+        SimpleDatabase database = new SimpleDatabase();
 
-        List<City> cities = database.load(0, 0);
+        List<City> cities = database.load("database/StaedteStatistik.CSV",0, 0);
 
         SelectionSort algortihm2 = new SelectionSort();
 

@@ -79,9 +79,10 @@ public class City{
         } else if(filterType.equals(FilterType.POPULATION_MALE)) {
             return new Integer(this.getBevMale()).compareTo(new Integer(o.getBevMale()));
 
+        } else {
+            throw new IllegalArgumentException("no compare for filter");
         }
 
-        return 0;
     }
 
     public double getValue(FilterType filterType){
@@ -101,9 +102,10 @@ public class City{
         } else if(filterType.equals(FilterType.POPULATION_MALE)) {
             return this.getBevMale();
 
+        }  else {
+            throw new IllegalArgumentException("no value for filter");
         }
 
-        return 0;
 
     }
 
