@@ -23,11 +23,6 @@ public class Filter {
 
     }
 
-    public Filter(FilterType columne, int value){
-        this(columne, value, value);
-
-    }
-
     public FilterType getFilterType() {
         return filterType;
     }

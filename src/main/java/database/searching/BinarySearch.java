@@ -61,6 +61,12 @@ public class BinarySearch {
         return right + 1;
     }
 
+    /**
+     * Wir kommen immer in den log2 (n) fall, weil binary search immer bis zum ende läuft, also ne 2^n - 1
+     * @param sortedList
+     * @param filter
+     * @return
+     */
     public int searchRight(List<City> sortedList, Filter filter) {
 
         int left = 0;
