@@ -1,5 +1,6 @@
 package database;
 
+import database.enity.City;
 import database.filter.Filter;
 import database.filter.FilterType;
 import database.searching.BinarySearch;

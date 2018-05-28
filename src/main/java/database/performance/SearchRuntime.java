@@ -1,6 +1,6 @@
 package database.performance;
 
-import database.City;
+import database.enity.City;
 import database.SimpleDatabase;
 import database.filter.Filter;
 import database.filter.FilterType;

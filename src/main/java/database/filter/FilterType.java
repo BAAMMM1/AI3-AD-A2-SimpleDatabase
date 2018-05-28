@@ -1,5 +1,8 @@
 package database.filter;
 
+/**
+ * Dieses Enumerable dient als Bezeichner für die Spalten der CSV-Datei.
+ */
 public enum FilterType {
 
     PLZ("Postleitzahl"),

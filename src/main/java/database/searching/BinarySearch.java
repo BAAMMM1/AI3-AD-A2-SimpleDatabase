@@ -1,12 +1,10 @@
 package database.searching;
 
-import database.City;
+import database.enity.City;
 import database.SimpleDatabase;
 import database.filter.Filter;
 import database.filter.FilterType;
-import database.sorting.SelectionSort;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
