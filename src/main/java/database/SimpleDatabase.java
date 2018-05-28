@@ -197,7 +197,7 @@ public class SimpleDatabase {
         for (int i = 0; i < filterList.size(); i++) {
 
             // 3. Für aktuellen Filter Hilfsliste aus Ergebnisliste erstellen (Sortierung)
-            result = new SelectionSort().sort(result, filterList.get(i).getFilterType());
+            result = new SelectionSort().sort(result, filterList.get(i));
 
             // 4. Binäre Suche nach Wert von links nach rechts Intervall
             int leftIndex = new BinarySearch().searchLeft(result, filterList.get(i));

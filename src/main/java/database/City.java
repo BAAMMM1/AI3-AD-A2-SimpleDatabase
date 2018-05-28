@@ -75,7 +75,9 @@ public class City{
         this.postleitzahl = postleitzahl;
     }
 
-    public int compareTo(City o, FilterType filterType) {
+    public int compareTo(City o, Filter filter) {
+
+        FilterType filterType = filter.getFilterType();
 
         if(filterType.equals(FilterType.PLZ)){
             return new Integer(this.getPostleitzahl()).compareTo(new Integer(o.getPostleitzahl()));

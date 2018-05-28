@@ -40,7 +40,7 @@ public class SearchRuntime {
         for(int i = 1; i < cityList.size(); i = i * 2){
 
             List<City> cities = cityList.subList(0,i);
-            new SelectionSort().sort(cities, FilterType.PLZ);
+            new SelectionSort().sort(cities, new Filter(FilterType.PLZ, 0,0));
             Filter filter = new Filter(FilterType.PLZ, random.nextInt(cities.get(cities.size()-1).getPostleitzahl())+1, 99999);
 
             BinarySearch search = new BinarySearch();
@@ -73,7 +73,7 @@ public class SearchRuntime {
         for(int i = 1; i < cityList.size(); i = i * 2){
 
             List<City> cities = cityList.subList(0,i);
-            new SelectionSort().sort(cities, FilterType.PLZ);
+            new SelectionSort().sort(cities, new Filter(FilterType.PLZ, 0,0));
             Filter filter = new Filter(FilterType.PLZ, 0, random.nextInt(cities.get(cities.size()-1).getPostleitzahl())+1);
 
             BinarySearch search = new BinarySearch();

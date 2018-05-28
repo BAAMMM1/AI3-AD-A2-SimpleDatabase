@@ -2,18 +2,29 @@ package database.sorting;
 
 import database.City;
 import database.SimpleDatabase;
+import database.filter.Filter;
 import database.filter.FilterType;
 
 import java.io.IOException;
 import java.util.List;
 
 /**
+ * Diese Klasse stellt den Selectionsort Algorithmus da. Er dient dazu City-Objekte nach einem übergebenen Filter
+ * zu sortieren.
+ *
  * @author Chris on 26.05.2018
  */
 public class SelectionSort {
 
 
-    public List<City> sort(List<City> cities, FilterType filter){
+    /**
+     * Führt die Handlungsvorschrift des SelectionsortAlgortihmus aus.
+     *
+     * @param cities zu sortierene Liste
+     * @param filter Filter der angibt nach welcher
+     * @return
+     */
+    public List<City> sort(List<City> cities, Filter filter){
 
 
         for(int i = 0; i < cities.size(); i++){
@@ -37,7 +48,13 @@ public class SelectionSort {
     }
 
 
-
+    /**
+     * Hilfsmethode die zwei Elemente einer Liste miteinander tauscht.
+     *
+     * @param cities
+     * @param ci
+     * @param min
+     */
     private void swap(List<City> cities, City ci, City min) {
 
         int i = cities.indexOf(ci);
@@ -62,7 +79,7 @@ public class SelectionSort {
 
         System.out.println(cities.size());
 
-        System.out.println(algortihm2.sort(cities, FilterType.PLZ));
+        System.out.println(algortihm2.sort(cities, new Filter(FilterType.PLZ, 1,2)));
 
 
     }
