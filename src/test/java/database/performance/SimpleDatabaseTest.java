@@ -6,12 +6,10 @@ import database.filter.Filter;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Chris on 27.05.2018
@@ -83,6 +81,11 @@ public class SimpleDatabaseTest {
 
     }
 
+    @Test
+    public void loadPathIncorrect(){
+        assertEquals(0, db.load("/incorrectPath/", 100, 200).size());
+    }
+
     @Test(expected = NullPointerException.class)
     public void loadPathNull(){
         db.load(null, 100, 200);
@@ -103,10 +106,7 @@ public class SimpleDatabaseTest {
         db.load(DB_CSV, 100, 80);
     }
 
-    @Test
-    public void loadPathIncorrect(){
-        assertEquals(0, db.load("/incorrectPath/", 100, 200).size());
-    }
+
 
     /*
     find - Test
