@@ -1,6 +1,6 @@
 package database.filter;
 
-public enum ColumneName {
+public enum FilterType {
 
     PLZ("Postleitzahl"),
     AREA("Fläche"),
@@ -10,7 +10,7 @@ public enum ColumneName {
 
     private final String value;
 
-    ColumneName(String value) {
+    FilterType(String value) {
         this.value = value;
     }
 

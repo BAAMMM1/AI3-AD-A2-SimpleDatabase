@@ -2,32 +2,45 @@ package database.filter;
 
 public class Filter {
 
-    private ColumneName columneName;
-    private int start;
-    private int end;
+    private FilterType filterType;
+    private double start;
+    private double end;
 
-    public Filter(ColumneName columne, int start, int end){
+    /**
+     * Erstellt einen Filter.
+     *
+     * @param columne Spaltenbezeichnung auf der er angewendet werden soll
+     * @param start 0 <= start <= end
+     * @param end   0 <= start <= end
+     */
+    public Filter(FilterType columne, double start, double end){
 
-        this.columneName = columne;
+        if(!(0 <= start) || !(start <= end)) throw new IllegalArgumentException("0 <= start <= end");
+
+        this.filterType = columne;
         this.start = start;
         this.end = end;
 
     }
 
-    public Filter(ColumneName columne, int value){
-        this(columne, value, value);
-
+    public FilterType getFilterType() {
+        return filterType;
     }
 
-    public ColumneName getColumneName() {
-        return columneName;
-    }
-
-    public int getStart() {
+    public double getStart() {
         return start;
     }
 
-    public int getEnd() {
+    public double getEnd() {
         return end;
+    }
+
+    @Override
+    public String toString() {
+        return "Filter{" +
+                "filterType=" + filterType +
+                ", start=" + start +
+                ", end=" + end +
+                '}';
     }
 }
