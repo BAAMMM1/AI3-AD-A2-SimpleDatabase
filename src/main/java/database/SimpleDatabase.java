@@ -231,30 +231,6 @@ public class SimpleDatabase {
 
         System.out.println(result);
 
-        /*
-        //List<City> result = database.find(filters, cities);
-
-        //System.out.println(result);
-
-        List<City> dumies = new ArrayList<City>();
-        dumies.add(new City(10));
-        dumies.add(new City(20));
-        dumies.add(new City(40));
-        dumies.add(new City(50));
-        dumies.add(new City(70));
-        dumies.add(new City(80));
-
-
-        filters = Arrays.asList(
-                new Filter(FilterType.PLZ, 49, 80)
-
-        );
-
-        List<City> result = database.find(filters, dumies);
-
-        System.out.println(result);
-        */
-
 
     }
 }
