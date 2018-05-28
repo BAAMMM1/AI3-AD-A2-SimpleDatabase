@@ -22,6 +22,18 @@ public class City{
         this.bevFemale = bevFemale;
 
     }
+    public City(String stadt, int postleitzahl, int flaeche, int bevGesamt, int bevMale, int bevFemale) {
+        this.stadt = stadt;
+        this.postleitzahl = postleitzahl;
+        this.flaeche = flaeche;
+        this.bevGesamt = bevGesamt;
+        this.bevMale = bevMale;
+        this.bevFemale = bevFemale;
+
+    }
+
+
+
 
     @Override
     public String toString() {
@@ -110,5 +122,32 @@ public class City{
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        City city = (City) o;
+
+        if (postleitzahl != city.postleitzahl) return false;
+        if (Double.compare(city.flaeche, flaeche) != 0) return false;
+        if (bevGesamt != city.bevGesamt) return false;
+        if (bevMale != city.bevMale) return false;
+        if (bevFemale != city.bevFemale) return false;
+        return stadt != null ? stadt.equals(city.stadt) : city.stadt == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = stadt != null ? stadt.hashCode() : 0;
+        result = 31 * result + postleitzahl;
+        temp = Double.doubleToLongBits(flaeche);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + bevGesamt;
+        result = 31 * result + bevMale;
+        result = 31 * result + bevFemale;
+        return result;
+    }
 }

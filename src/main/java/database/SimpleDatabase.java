@@ -216,10 +216,10 @@ public class SimpleDatabase {
 
         SimpleDatabase database = new SimpleDatabase();
 
-        List<City> cities = database.load("database/StaedteStatistik.CSV", 1, 2000);
+        List<City> cities = database.load("database/StaedteStatistik.CSV", 1, 2058);
 
         List<Filter> filters = Arrays.asList(
-                new Filter(FilterType.PLZ, 60311, 60311) // TODO - 552670, 55435
+                new Filter(FilterType.AREA, 0, 7060311) // TODO - 552670, 55435
                 //new Filter(FilterType.POPULATION, 3574829, 3574831)
                 //new Filter(FilterType.AREA, 13.50, 15.38)
 

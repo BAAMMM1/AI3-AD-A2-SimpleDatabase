@@ -16,6 +16,9 @@ import java.util.List;
  */
 public class BinarySearch {
 
+    private int leftComparison;
+    private int rightComparison;
+
 
     public int searchLeft(List<City> sortedList, Filter filter) {
 
@@ -23,7 +26,7 @@ public class BinarySearch {
         int right = sortedList.size() - 1;
         int mid;
         double leftKey = filter.getStart();
-        int counterCompare = 0;
+        this.leftComparison = 0;
 
         // 1. precondition check
         // Wenn die linke Schranke kleiner oder gleich als das erste Element der vorsortieren Liste, dann Fallen keine
@@ -46,7 +49,7 @@ public class BinarySearch {
 
             }
             */
-            counterCompare++;
+            this.leftComparison++;
             if (leftKey <= sortedList.get(mid).getValue(filter)) {
                 right = mid - 1;
 
@@ -55,8 +58,6 @@ public class BinarySearch {
 
             }
         }
-
-        System.out.println("comparison left: " + counterCompare);
 
         return right + 1;
     }
@@ -73,7 +74,7 @@ public class BinarySearch {
         int right = sortedList.size() - 1;
         int mid;
         double rightKey = filter.getEnd();
-        int counterCompare = 0;
+        this.rightComparison = 0;
 
         // 1. precondition check
         // Wenn die rechte Schranke größer oder gleich als das erste Element der vorsortieren Liste, dann Fallen keine
@@ -96,7 +97,7 @@ public class BinarySearch {
 
             }
             */
-            counterCompare++;
+            this.rightComparison++;
             if (rightKey >= sortedList.get(mid).getValue(filter)) {
                 left = mid + 1;
 
@@ -107,9 +108,14 @@ public class BinarySearch {
 
         }
 
-        System.out.println("comparison right: " + counterCompare);
-
         return left - 1;
     }
 
+    public int getLeftComparison() {
+        return leftComparison;
+    }
+
+    public int getRightComparison() {
+        return rightComparison;
+    }
 }

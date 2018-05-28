@@ -34,4 +34,13 @@ public class Filter {
     public double getEnd() {
         return end;
     }
+
+    @Override
+    public String toString() {
+        return "Filter{" +
+                "filterType=" + filterType +
+                ", start=" + start +
+                ", end=" + end +
+                '}';
+    }
 }
