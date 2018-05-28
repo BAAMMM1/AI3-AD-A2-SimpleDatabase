@@ -1,12 +1,10 @@
 package database.searching;
 
-import database.City;
+import database.enity.City;
 import database.SimpleDatabase;
 import database.filter.Filter;
 import database.filter.FilterType;
-import database.sorting.SelectionSort;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,7 +54,7 @@ public class BinarySearch {
         // Wenn die linke Schranke kleiner oder gleich als das erste Element der Liste, dann Fallen keine Objekte raus.
         if (leftKey <= sortedList.get(left).getValue(filter)) return left;
 
-        // Falls die linke Schranke größer als das größe Element ist
+        // Falls die linke Schranke größer als das größe Element ist, dann kein Ergebnis
         if (leftKey > sortedList.get(right).getValue(filter)) throw new IllegalArgumentException("start is to big");
 
         // 2. So lange bis lins kleiner oder größer right
@@ -103,7 +101,7 @@ public class BinarySearch {
         // Wenn die rechte Schranke größer oder gleich als das erste Element der Liste, dann Fallen keine Objekte raus.
         if (rightKey >= sortedList.get(right).getValue(filter)) return right;
 
-        // Falls die rechte Schranke kleiner als das kleinste Element ist
+        // Falls die rechte Schranke kleiner als das kleinste Element ist, dann kein Ergebnis
         if (rightKey < sortedList.get(left).getValue(filter)) throw new IllegalArgumentException("end is to low");
 
 

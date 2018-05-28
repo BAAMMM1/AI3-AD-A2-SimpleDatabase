@@ -1,5 +1,6 @@
 package database;
 
+import database.enity.City;
 import database.filter.Filter;
 import database.filter.FilterType;
 import database.searching.BinarySearch;
@@ -129,7 +130,7 @@ public class SimpleDatabase {
             }
 
         } catch (IOException e) {
-            System.err.println(e.getClass().getSimpleName() + " - return empty list");
+            return result;
         }
 
         return result;
@@ -219,9 +220,10 @@ public class SimpleDatabase {
         List<City> cities = database.load("database/StaedteStatistik.CSV", 1, 2058);
 
         List<Filter> filters = Arrays.asList(
-                new Filter(FilterType.AREA, 0, 7060311) // TODO - 552670, 55435
-                //new Filter(FilterType.POPULATION, 3574829, 3574831)
-                //new Filter(FilterType.AREA, 13.50, 15.38)
+                new Filter(FilterType.PLZ, 1200, 1650), // TODO - 552670, 55435
+                new Filter(FilterType.AREA, 26.00, 30.00),
+                new Filter(FilterType.POPULATION, 10000, 20000)
+
 
         );
 

@@ -1,5 +1,9 @@
 package database.filter;
 
+/**
+ * Diese Klasse stellt ein Suchkriterium da. Dabei besteht der Filter aus einem Spaltenbezeichner und einem Intervall
+ * von Start bis End. Der Filter dient dazu City-Objekte einer Liste einzugrenzen.
+ */
 public class Filter {
 
     private FilterType filterType;
@@ -7,7 +11,7 @@ public class Filter {
     private double end;
 
     /**
-     * Erstellt einen Filter.
+     * Erstellt einen Filter für eine Spaltenbezeichnung und einem Intervall von Start bis Ende.
      *
      * @param columne Spaltenbezeichnung auf der er angewendet werden soll
      * @param start 0 <= start <= end

@@ -1,8 +1,11 @@
-package database;
+package database.enity;
 
 import database.filter.Filter;
 import database.filter.FilterType;
 
+/**
+ * Diese Klasse stellt ein Zeile der CSV-Datei da. Dabei wird eine Zeile als eine Stadt interpretiert.
+ */
 public class City{
 
     private String stadt;
@@ -31,8 +34,6 @@ public class City{
         this.bevFemale = bevFemale;
 
     }
-
-
 
 
     @Override
@@ -75,6 +76,13 @@ public class City{
         this.postleitzahl = postleitzahl;
     }
 
+    /**
+     * Diese Methode vergleicht zwei City-Objecte miteinander für einen übergebenen Filter.
+     *
+     * @param o andere Stadt
+     * @param filter muss eine Spaltenbezeichnung der CSV-Datei enthalten
+     * @return bei kleiner -1, bei gleich 0, bei größer +1
+     */
     public int compareTo(City o, Filter filter) {
 
         FilterType filterType = filter.getFilterType();
@@ -100,6 +108,12 @@ public class City{
 
     }
 
+    /**
+     * Diese Methode gibt den jeweiligen Spaltenwert der Stadt für den übergebenen Filter zurück
+     *
+     * @param filter Filter der angibt welcher Spaltenwert zurück gegeben wird
+     * @return 0 <= return
+     */
     public double getValue(Filter filter){
 
         if(filter.getFilterType().equals(FilterType.PLZ)){
