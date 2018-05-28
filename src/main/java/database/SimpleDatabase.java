@@ -130,7 +130,7 @@ public class SimpleDatabase {
             }
 
         } catch (IOException e) {
-            System.err.println(e.getClass().getSimpleName() + " - return empty list");
+            return result;
         }
 
         return result;
