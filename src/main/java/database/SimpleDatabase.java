@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Diese Klasse stellt eine einfache Datenbank von City-Objekten auf Basis einer CSV-Datei da.
@@ -64,7 +65,8 @@ public class SimpleDatabase {
     /**
      * Default - Konstruktor
      */
-    public SimpleDatabase() { }
+    public SimpleDatabase() {
+    }
 
     /**
      * Diese Methode stellt das Einlesen von Städten eines Abschnitts einer übergebenen CSV-Datei von Start-Zeile bis
@@ -88,46 +90,40 @@ public class SimpleDatabase {
         // 2. Einlesen der CSV-Datein und Aufbauen der City-Liste
         ArrayList<City> result = new ArrayList<City>();
 
-        BufferedReader reader = null;
 
-        try {
-            reader = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(path), CHARSET));
-            try {
+        try (BufferedReader reader =
+                     new BufferedReader(new InputStreamReader(new FileInputStream(path), CHARSET))) {
 
-                int index = 0;
-                String line;
+            int index = 0;
+            String line;
 
-                // 2.1 Lese jede Zeile ein
-                while ((line = reader.readLine()) != null) {
-                    // 2.2 Prüfe ob die Zeile im Intervall liegt.
-                    index += 1;
-                    if (index < start) continue;
-                    if (index > end) break;
+            // 2.1 Lese jede Zeile ein
+            while ((line = reader.readLine()) != null) {
+                // 2.2 Prüfe ob die Zeile im Intervall liegt.
+                index += 1;
+                if (index < start) continue;
+                if (index > end) break;
 
-                    // 2.3 Trenne die Spalten von einander
-                    String tokens[] = line.split(SYMBOL_DELIMITER);
+                // 2.3 Trenne die Spalten von einander
+                String tokens[] = line.split(SYMBOL_DELIMITER);
 
-                    // 2.4 Entferne die Spaces aus den Zahlenwerten
-                    for (int i = 1; i < tokens.length; i++) {
-                        tokens[i] = this.replaceSpace(tokens[i]);
-                    }
-
-                    // 2.5 Erstelle für die Zeile ein City und füge es der City-Liste hinzu
-                    result.add(new City(
-                            tokens[0],
-                            this.parseIntValue(tokens[1]),
-                            this.parseDoubleValue(tokens[2]),
-                            this.parseIntValue(tokens[3]),
-                            this.parseIntValue(tokens[4]),
-                            this.parseIntValue(tokens[5])
-                    ));
-
+                // 2.4 Entferne die Spaces aus den Zahlenwerten
+                for (int i = 1; i < tokens.length; i++) {
+                    tokens[i] = this.replaceSpace(tokens[i]);
                 }
 
-            } finally {
-                reader.close();
+                // 2.5 Erstelle für die Zeile ein City und füge es der City-Liste hinzu
+                result.add(new City(
+                        tokens[0],
+                        this.parseIntValue(tokens[1]),
+                        this.parseDoubleValue(tokens[2]),
+                        this.parseIntValue(tokens[3]),
+                        this.parseIntValue(tokens[4]),
+                        this.parseIntValue(tokens[5])
+                ));
+
             }
+
 
         } catch (IOException e) {
             return result;
@@ -177,8 +173,8 @@ public class SimpleDatabase {
 
 
     /**
-     * Die Methode find liefert eine Liste von City-Objekten aus der übergebenen Liste an City-Objekten zurück,
-     * die alle Kritierien der Filerliste erfüllen.
+     * Die Methode find liefert eine Liste von City-Objekten aus der übergebenen Liste an City-Objekten zurück, die alle
+     * Kritierien der Filerliste erfüllen.
      *
      * @param filterList darf nicht null sein, falls leer wird kein Filter angewendet
      * @param database   darf nicht null sein, falls leer wird eine leere Liste zurück gegeben
