@@ -14,7 +14,7 @@ public class City{
     private int bevGesamt;
     private int bevMale;
     private int bevFemale;
-
+    
 
     public City(String stadt, int postleitzahl, double flaeche, int bevGesamt, int bevMale, int bevFemale) {
         this.stadt = stadt;
@@ -25,6 +25,7 @@ public class City{
         this.bevFemale = bevFemale;
 
     }
+    
     public City(String stadt, int postleitzahl, int flaeche, int bevGesamt, int bevMale, int bevFemale) {
         this.stadt = stadt;
         this.postleitzahl = postleitzahl;
